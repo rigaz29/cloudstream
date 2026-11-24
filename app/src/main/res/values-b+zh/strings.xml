@@ -777,4 +777,8 @@
     <string name="edit_profile_image_picker">图片选择器</string>
     <string name="edit_profile_image_default">默认图片</string>
     <string name="installed_plugins">已安装的插件</string>
+    <string name="error_file_io_toast">写入文件时出错。数字和设置新的下载目录。</string>
+    <string name="error_file_unknown_toast">下载文件时出错。请重试。</string>
+    <string name="error_file_invalid_toast">下载源无效，尝试别的源。</string>
+    <string name="error_settings_invalid_toast">无效的下载设置。</string>
 </resources>
