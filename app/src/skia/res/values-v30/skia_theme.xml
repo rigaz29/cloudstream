@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CloudStream Skia, Android 11+: the app draws edge to edge here (enableEdgeToEdgeCompat),
+    so the translucent status bar flag from AppTheme only adds a grey band over the content.
+    Same items as LoadedStyle in values/skia_theme.xml, plus the status bar ones.
+-->
+<resources>
+    <style name="LoadedStyle">
+        <item name="android:navigationBarColor">?attr/primaryBlackBackground</item>
+        <item name="android:windowBackground">?attr/primaryBlackBackground</item>
+        <item name="autoCompleteTextViewStyle">@style/SkiaAutoComplete</item>
+        <item name="android:autoCompleteTextViewStyle">@style/SkiaAutoComplete</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+    </style>
+</resources>

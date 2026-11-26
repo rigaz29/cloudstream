@@ -700,6 +700,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             homeMasterRecycler.adapter = homeMasterAdapter
 
             homeApiFab.isVisible = isLayout(PHONE)
+            com.lagradost.cloudstream3.skia.SkiaUi.placeHomeSourcePill(homeApiFab) // Skia hook
 
             homePreviewReloadProvider.setOnClickListener {
                 homeViewModel.loadAndCancel(

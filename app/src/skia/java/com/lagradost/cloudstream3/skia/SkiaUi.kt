@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.lagradost.cloudstream3.R
+import com.lagradost.cloudstream3.utils.UIHelper.getStatusBarHeight
 
 /**
  * CloudStream Skia UI helpers that upstream code calls through one-line hooks
@@ -47,5 +48,18 @@ object SkiaUi {
             WindowInsetsCompat.CONSUMED
         }
         ViewCompat.requestApplyInsets(nav)
+    }
+
+    /**
+     * Puts the home source picker (an extended FAB in upstream) at the top of Home, level
+     * with the search and profile buttons of the header, below the status bar.
+     */
+    fun placeHomeSourcePill(pill: View) {
+        // Window insets do not reach this view (a parent consumes them), so use the
+        // status bar height directly, like upstream does for its own headers.
+        val offset = pill.resources.getDimensionPixelSize(R.dimen.skia_home_pill_offset)
+        pill.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            topMargin = pill.context.getStatusBarHeight() + offset
+        }
     }
 }
