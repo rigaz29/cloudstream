@@ -7,8 +7,8 @@ feels on phones; everything else is CloudStream, merged from upstream every day.
 > **Note:** the app does not include any video sources. You add them yourself by installing
 > extensions.
 
-**[Download the latest APK](https://github.com/rigaz29/cloudstream/releases/download/pre-release/CloudStream-Skia.apk)** ·
-[Release notes](https://github.com/rigaz29/cloudstream/releases/tag/pre-release)
+**[Download the latest APK](https://github.com/rigaz29/cloudstream-skia/releases/download/pre-release/CloudStream-Skia.apk)** ·
+[Release notes](https://github.com/rigaz29/cloudstream-skia/releases/tag/pre-release)
 
 <p>
   <img src=".github/images/skia/details.jpg" alt="Details page with season and episode list" width="32%">
@@ -75,7 +75,7 @@ is not, the workflow opens an issue here.
 ## Reporting problems
 
 - Something that looks or behaves differently from the official app:
-  [open an issue here](https://github.com/rigaz29/cloudstream/issues).
+  [open an issue here](https://github.com/rigaz29/cloudstream-skia/issues).
 - A problem that also happens in the official CloudStream app: report it
   [upstream](https://github.com/recloudstream/cloudstream/issues/new/choose).
 - A problem with one site or extension: report it to that extension's author.
