@@ -5,6 +5,10 @@
     <!-- Details page top bar -->
     <string name="skia_more_actions">More actions</string>
 
+    <!-- Continue watching: time left on a poster -->
+    <string name="skia_time_left_minutes">%d min left</string>
+    <string name="skia_time_left_hours">%1$d h %2$d min left</string>
+
     <!-- Player source list -->
     <string name="skia_source_type_video">Video file</string>
     <string name="skia_source_type_file">Downloaded file</string>

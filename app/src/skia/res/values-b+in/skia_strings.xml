@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="skia_more_actions">Aksi lainnya</string>
+    <string name="skia_time_left_minutes">Sisa %d mnt</string>
+    <string name="skia_time_left_hours">Sisa %1$d j %2$d mnt</string>
+    <string name="skia_source_type_video">File video</string>
+    <string name="skia_source_type_file">File unduhan</string>
+    <plurals name="skia_search_progress">
+        <item quantity="other">%1$d dari %2$d sumber menjawab</item>
+    </plurals>
+    <plurals name="skia_search_done">
+        <item quantity="other">Hasil dari %1$d dari %2$d sumber</item>
+    </plurals>
+</resources>
