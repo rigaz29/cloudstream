@@ -45,6 +45,22 @@
     <dimen name="skia_nav_radius">24dp</dimen>
     <dimen name="skia_nav_item_padding">10dp</dimen>
 
+    <!-- Page titles (Search, Library) -->
+    <style name="SkiaPageTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textFontWeight">800</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:fontFamily">@font/google_sans</item>
+    </style>
+
+    <dimen name="skia_search_height">52dp</dimen>
+
     <!-- Details page -->
     <dimen name="skia_result_artwork_height">300dp</dimen>
     <dimen name="skia_primary_button_height">52dp</dimen>
@@ -188,5 +204,16 @@
     <style name="LoadedStyle">
         <item name="android:navigationBarColor">?attr/primaryBlackBackground</item>
         <item name="android:windowBackground">?attr/primaryBlackBackground</item>
+        <!--
+            LoadedStyle is applied last by CommonActivity.loadThemes, so it is also where Skia
+            adds theme-wide attributes without copying AppTheme. Search fields use these:
+        -->
+        <item name="autoCompleteTextViewStyle">@style/SkiaAutoComplete</item>
+        <item name="android:autoCompleteTextViewStyle">@style/SkiaAutoComplete</item>
+    </style>
+
+    <style name="SkiaAutoComplete" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
     </style>
 </resources>

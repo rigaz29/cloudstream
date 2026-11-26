@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CloudStream Skia override of app/src/main/res/layout/library_viewpager_page.xml.
+    LibraryScrollTransformer rewrites the padding of page_recyclerview on every frame, so the
+    side margins live on a wrapper instead. Code reaches the list through its id only.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="10dp"
+    android:paddingTop="4dp"
+    android:paddingEnd="10dp">
+
+    <com.lagradost.cloudstream3.ui.AutofitRecyclerView
+        android:id="@+id/page_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:focusable="false"
+        android:tag="tv_no_focus_tag"
+        tools:listitem="@layout/home_result_grid_expanded" />
+</FrameLayout>
