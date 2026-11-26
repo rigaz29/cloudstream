@@ -629,12 +629,12 @@
                                     <ImageView
                                         android:id="@+id/episode_play_icon"
                                         style="@style/ContinueWatchingPlayUnderlayProgress"
-                                        app:tint="?attr/colorOnPrimary" />
+                                        app:tint="?attr/primaryBlackBackground" />
 
                                     <com.google.android.material.progressindicator.CircularProgressIndicator
                                         android:id="@+id/result_resume_series_progress"
                                         style="@style/ContinueWatchingCircularProgress"
-                                        app:indicatorColor="?attr/colorOnPrimary"
+                                        app:indicatorColor="?attr/primaryBlackBackground"
                                         app:trackColor="@color/skipOpTransparent"
                                         tools:progress="50" />
                                 </FrameLayout>
@@ -652,7 +652,7 @@
                                     android:maxLines="1"
                                     android:paddingStart="5dp"
                                     android:textAllCaps="false"
-                                    android:textColor="?attr/colorOnPrimary"
+                                    android:textColor="?attr/primaryBlackBackground"
                                     android:textSize="15sp"
                                     android:textStyle="bold"
                                     android:visibility="visible"
@@ -672,7 +672,7 @@
                                     android:maxLines="1"
                                     android:paddingStart="5dp"
                                     android:textAllCaps="false"
-                                    android:textColor="?attr/colorOnPrimary"
+                                    android:textColor="?attr/primaryBlackBackground"
                                     android:textSize="15sp"
                                     android:textStyle="bold"
                                     android:visibility="gone"
@@ -736,7 +736,7 @@
                                     android:nextFocusDown="@id/result_download_movie"
                                     android:text="@string/play_movie_button"
                                     android:visibility="visible"
-                                    app:icon="@drawable/ic_baseline_play_arrow_24">
+                                    app:icon="@drawable/skia_ic_play">
 
                                     <requestFocus />
 

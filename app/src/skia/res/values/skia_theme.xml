@@ -7,13 +7,13 @@
     small mode/overlay styles; never copy big upstream styles such as AppTheme.
 -->
 <resources>
-    <!-- Skia palette -->
-    <color name="skia_ground">#09090B</color>
-    <color name="skia_surface">#141418</color>
-    <color name="skia_surface_high">#1C1C22</color>
-    <color name="skia_line">#26262E</color>
-    <color name="skia_text">#F5F5F7</color>
-    <color name="skia_text_muted">#A0A0AB</color>
+    <!-- Skia palette: neutral darks with a faint warm tint that matches the crimson accent -->
+    <color name="skia_ground">#0B0A0A</color>
+    <color name="skia_surface">#171314</color>
+    <color name="skia_surface_high">#201A1B</color>
+    <color name="skia_line">#2D2527</color>
+    <color name="skia_text">#F7F5F5</color>
+    <color name="skia_text_muted">#A69FA1</color>
     <color name="skia_accent">#E0283E</color>
     <color name="skia_accent_dark">#9E1B2D</color>
     <color name="skia_on_accent">#FFFFFF</color>
@@ -32,6 +32,9 @@
     <color name="amoledModeLight">@color/skia_surface</color>
     <color name="dubColorBg">@color/skia_accent</color>
     <color name="dubColorText">@color/skia_on_accent</color>
+
+    <!-- Skeleton placeholders: upstream shimmer alphas (0.2 / 0.3) give about 6% / 10% white -->
+    <color name="grayShimmer">#575153</color>
 
     <!-- Rounder corners -->
     <dimen name="rounded_image_radius">12dp</dimen>
@@ -64,35 +67,134 @@
     <!-- Home source pill: distance below the status bar (level with the header buttons) -->
     <dimen name="skia_home_pill_offset">4dp</dimen>
 
+    <!-- Home hero (Nuvio-like): height, artwork fade, logo box, distances from the bottom -->
+    <dimen name="skia_hero_height">540dp</dimen>
+    <dimen name="skia_hero_fade_height">260dp</dimen>
+    <dimen name="skia_hero_logo_width">250dp</dimen>
+    <dimen name="skia_hero_logo_height">96dp</dimen>
+    <dimen name="skia_hero_button">52dp</dimen>
+    <dimen name="skia_hero_buttons_bottom">34dp</dimen>
+    <dimen name="skia_hero_dots_bottom">14dp</dimen>
+    <dimen name="skia_hero_text_bottom">104dp</dimen>
+
     <!-- Details page -->
     <dimen name="skia_result_artwork_height">300dp</dimen>
     <dimen name="skia_primary_button_height">52dp</dimen>
-    <dimen name="skia_primary_button_radius">16dp</dimen>
+    <dimen name="skia_primary_button_radius">26dp</dimen>
+    <!-- Half of the 40dp button height: stadium shape -->
+    <dimen name="skia_pill_radius">20dp</dimen>
     <dimen name="skia_icon_button">38dp</dimen>
     <dimen name="skia_icon_gap">6dp</dimen>
 
     <!--
         Buttons. WhiteButton is upstream's primary action style and BlackButton the secondary
-        one; Skia makes the primary one the accent color and gives the secondary a hairline.
+        one. Skia, like Nuvio: the primary action is a white stadium pill with dark text, the
+        accent is kept for progress, selection and navigation. WhiteButton does not inherit
+        NiceButton because NiceButton's android:padding would override the side padding.
     -->
-    <style name="WhiteButton" parent="NiceButton">
+    <style name="WhiteButton">
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:paddingStart">18dp</item>
+        <item name="android:paddingEnd">18dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:letterSpacing">0.01</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconSize">20dp</item>
+        <item name="iconPadding">6dp</item>
+        <item name="cornerRadius">@dimen/skia_pill_radius</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:foreground">@drawable/outline_drawable_less</item>
+        <item name="android:tag">@string/tv_no_focus_tag</item>
         <item name="strokeColor">@color/transparent</item>
         <item name="strokeWidth">0dp</item>
-        <item name="backgroundTint">?attr/colorPrimary</item>
-        <item name="iconTint">?attr/colorOnPrimary</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="rippleColor">#33FFFFFF</item>
+        <item name="backgroundTint">?attr/textColor</item>
+        <item name="iconTint">?attr/primaryBlackBackground</item>
+        <item name="android:textColor">?attr/primaryBlackBackground</item>
+        <item name="rippleColor">#26000000</item>
     </style>
 
     <style name="BlackButton" parent="NiceButton">
         <item name="android:letterSpacing">0.01</item>
+        <item name="cornerRadius">@dimen/skia_pill_radius</item>
         <item name="strokeColor">@color/skia_line</item>
         <item name="strokeWidth">1dp</item>
         <item name="backgroundTint">?attr/iconGrayBackground</item>
         <item name="iconTint">?attr/textColor</item>
         <item name="android:textColor">?attr/textColor</item>
         <item name="rippleColor">@color/black_button_ripple</item>
+    </style>
+
+    <!--
+        Round icon button beside the hero Play pill. Upstream binds these as TextViews with a
+        top drawable and a label; the label is drawn transparent and 1sp so only the icon shows.
+    -->
+    <style name="SkiaHeroCircle">
+        <item name="android:layout_width">@dimen/skia_hero_button</item>
+        <item name="android:layout_height">@dimen/skia_hero_button</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/skia_hero_circle</item>
+        <item name="android:gravity">center_horizontal|top</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">1sp</item>
+        <item name="android:textColor">@color/transparent</item>
+        <item name="drawableTint">?attr/white</item>
+    </style>
+
+    <!--
+        Bottom sheets float like Nuvio's: 10dp from the screen edges, all corners round, a
+        hairline edge. The style is applied to the sheet view itself, so margins work here.
+    -->
+    <style name="AppBottomSheetDialogTheme">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Design.BottomSheetDialog</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle">
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_skipCollapsed">true</item>
+        <item name="shapeAppearance">@null</item>
+        <item name="shapeAppearanceOverlay">@null</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:background">@drawable/skia_sheet_background</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="behavior_peekHeight">512dp</item>
+    </style>
+
+    <!-- Extended FABs (home source, details bookmark, library sort, random) -->
+    <style name="ExtendedFloatingActionButton">
+        <item name="elevation">0dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="backgroundTint">?attr/primaryGrayBackground</item>
+        <item name="tint">?attr/colorPrimary</item>
+        <item name="textColor">?attr/colorPrimary</item>
+        <item name="iconTint">?attr/textColor</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <!-- Small tag buttons (source, age rating, filler): taller so the font is not clipped -->

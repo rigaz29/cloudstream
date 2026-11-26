@@ -513,6 +513,7 @@ class HomeParentItemAdapterPreview(
             previewViewpager.setPageTransformer(HomeScrollTransformer())
 
             previewViewpager.adapter = previewAdapter
+            com.lagradost.cloudstream3.skia.SkiaHomeHero.attach(itemView, previewViewpager) // Skia hook
             resumeRecyclerView.adapter = resumeAdapter
             bookmarkRecyclerView.setRecycledViewPool(HomeChildItemAdapter.sharedPool)
             bookmarkRecyclerView.adapter = bookmarkAdapter

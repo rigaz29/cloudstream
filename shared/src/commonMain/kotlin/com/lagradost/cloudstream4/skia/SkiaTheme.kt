@@ -30,12 +30,12 @@ import org.jetbrains.compose.resources.Font
  * (search for "Skia hook").
  */
 object SkiaTheme {
-    val ground = Color(0xFF09090B)
-    val surface = Color(0xFF141418)
-    val surfaceHigh = Color(0xFF1C1C22)
-    val line = Color(0xFF26262E)
-    val text = Color(0xFFF5F5F7)
-    val textMuted = Color(0xFFA0A0AB)
+    val ground = Color(0xFF0B0A0A)
+    val surface = Color(0xFF171314)
+    val surfaceHigh = Color(0xFF201A1B)
+    val line = Color(0xFF2D2527)
+    val text = Color(0xFFF7F5F5)
+    val textMuted = Color(0xFFA69FA1)
     val accent = Color(0xFFE0283E)
 
     /** Text on light accent colors; the Skia crimson itself takes white text. */

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CloudStream Skia: hero bottom fade into the page background -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="-90"
+        android:centerColor="#A60B0A0A"
+        android:centerY="0.5"
+        android:endColor="?attr/primaryBlackBackground"
+        android:startColor="@color/transparent" />
+</shape>

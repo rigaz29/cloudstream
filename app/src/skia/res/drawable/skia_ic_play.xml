@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CloudStream Skia: play icon for buttons with a label. The triangle has equal space on both
+    sides of its box (upstream's ic_baseline_play_arrow_24 leaves 8 units left and 5 right),
+    so icon + label sit visually centered in a pill.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M5.5,4.2C5.5,3.4 6.4,2.9 7.1,3.3L19.2,11.1C19.8,11.5 19.8,12.5 19.2,12.9L7.1,20.7C6.4,21.1 5.5,20.6 5.5,19.8Z" />
+</vector>

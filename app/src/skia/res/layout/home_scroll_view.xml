@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CloudStream Skia override of app/src/main/res/layout/home_scroll_view.xml (phone hero page).
+    Same view ids and types as upstream. Nuvio-like: the artwork fades into the page, a centered
+    logo or two-line title, one line of tags (singleLine: upstream sets maxLines = 2 in code). The buttons and page dots are in fragment_home_head.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/primaryBlackBackground">
+
+    <ImageView
+        android:id="@+id/home_scroll_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/example_poster" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/skia_hero_scrim" />
+
+    <View
+        android:id="@+id/title_shadow_top"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_gravity="top"
+        android:background="@drawable/skia_top_scrim"
+        android:visibility="visible" />
+
+    <View
+        android:id="@+id/title_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/skia_hero_fade_height"
+        android:layout_gravity="bottom"
+        android:background="@drawable/skia_hero_fade" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/skia_hero_text_bottom"
+        android:orientation="vertical"
+        android:paddingHorizontal="28dp">
+
+        <ImageView
+            android:id="@+id/home_preview_logo"
+            android:layout_width="@dimen/skia_hero_logo_width"
+            android:layout_height="@dimen/skia_hero_logo_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/home_scroll_preview_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/google_sans"
+            android:gravity="center"
+            android:letterSpacing="-0.02"
+            android:lineSpacingMultiplier="0.95"
+            android:maxLines="2"
+            android:shadowColor="#66000000"
+            android:shadowDy="2"
+            android:shadowRadius="12"
+            android:textColor="?attr/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            tools:text="The Perfect Run" />
+
+        <TextView
+            android:id="@+id/home_scroll_preview_tags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:fontFamily="@font/google_sans"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="#D9FFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            tools:text="Action • Drama • Fantasy" />
+    </LinearLayout>
+
+</FrameLayout>
