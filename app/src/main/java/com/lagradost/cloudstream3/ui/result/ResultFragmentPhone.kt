@@ -1426,6 +1426,7 @@ open class ResultFragmentPhone : BaseFragment<FragmentResultSwipeBinding>(
                 }
             }
         }
+        com.lagradost.cloudstream3.skia.SkiaResultPage.attach(this, viewModel, binding, resultBinding) // Skia hook
     }
 
     private fun resumeAction(
