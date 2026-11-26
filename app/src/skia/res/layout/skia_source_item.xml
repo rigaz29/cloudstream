@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CloudStream Skia: one row of the player's source list (SkiaSourceAdapter).
+    The list marks the chosen row as activated; the children follow that state.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/skia_source_item_background"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:minHeight="68dp"
+    android:orientation="horizontal"
+    android:paddingStart="14dp"
+    android:paddingTop="14dp"
+    android:paddingEnd="14dp"
+    android:paddingBottom="14dp">
+
+    <TextView
+        android:id="@+id/skia_source_quality"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:background="@drawable/skia_quality_badge"
+        android:duplicateParentState="true"
+        android:gravity="center"
+        android:minWidth="54dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textColor="@color/skia_quality_badge_text"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        tools:text="1080p" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/skia_source_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="?attr/textColor"
+            android:textFontWeight="600"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="Idlix Majorplay" />
+
+        <TextView
+            android:id="@+id/skia_source_meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="?attr/grayTextColor"
+            android:textSize="12sp"
+            tools:text="HLS · Idlix" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/skia_source_check"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:duplicateParentState="true"
+        android:importantForAccessibility="no"
+        android:src="@drawable/skia_check_when_activated"
+        app:tint="?attr/colorPrimary" />
+</LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CloudStream Skia: source row card; the chosen (activated) row gets the accent outline -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true">
+        <layer-list>
+            <item
+                android:bottom="4dp"
+                android:top="4dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/color_primary_transparent" />
+                    <stroke
+                        android:width="1dp"
+                        android:color="?attr/colorPrimary" />
+                    <corners android:radius="14dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item
+                android:bottom="4dp"
+                android:top="4dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="?attr/primaryGrayBackground" />
+                    <stroke
+                        android:width="1dp"
+                        android:color="@color/skia_line" />
+                    <corners android:radius="14dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

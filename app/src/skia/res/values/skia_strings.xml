@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="skia_app_name" translatable="false">CloudStream Skia</string>
+
+    <!-- Player source list -->
+    <string name="skia_source_type_video">Video file</string>
+    <string name="skia_source_type_file">Downloaded file</string>
 </resources>

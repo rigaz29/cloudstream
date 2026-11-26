@@ -1143,6 +1143,7 @@ class GeneratorPlayer : FullScreenPlayer() {
 
                         providerList.choiceMode = AbsListView.CHOICE_MODE_SINGLE
                         providerList.adapter = sourcesArrayAdapter
+                        providerList.adapter = com.lagradost.cloudstream3.skia.SkiaSourceAdapter(ctx, filteredLinks) // Skia hook
                         providerList.setSelection(sourceIndex)
                         providerList.setItemChecked(sourceIndex, true)
 
