@@ -49,6 +49,10 @@
             android:layout_marginBottom="@dimen/skia_nav_margin"
             android:elevation="8dp"
             app:labelVisibilityMode="labeled"
+            app:itemPaddingTop="@dimen/skia_nav_item_padding"
+            app:itemPaddingBottom="@dimen/skia_nav_item_padding"
+            app:itemTextAppearanceActive="@style/SkiaNavLabel.Active"
+            app:itemTextAppearanceInactive="@style/SkiaNavLabel"
             android:background="@drawable/skia_nav_background"
 
             app:itemIconTint="@color/item_select_color"

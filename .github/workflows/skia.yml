@@ -115,14 +115,22 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Restore signing key
+        id: key
         env:
           SKIA_KEYSTORE_B64: ${{ secrets.SKIA_KEYSTORE_B64 }}
         run: |
+          if [ -z "$SKIA_KEYSTORE_B64" ]; then
+            echo "::warning::SKIA_KEYSTORE_B64 is not set; skipping the release build."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           # app/build.gradle.kts reads the first file in <home>/work/_temp/keystore
           mkdir -p "$RUNNER_TEMP/keystore"
           echo "$SKIA_KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/keystore/skia.jks"
+          echo "ok=true" >> "$GITHUB_OUTPUT"
 
       - name: Build prerelease APK
+        if: steps.key.outputs.ok == 'true'
         run: ./gradlew assemblePrereleaseRelease
         env:
           SIGNING_KEY_ALIAS: ${{ secrets.SKIA_KEY_ALIAS }}
@@ -130,6 +138,7 @@ jobs:
           SIGNING_STORE_PASSWORD: ${{ secrets.SKIA_KEYSTORE_PASSWORD }}
 
       - name: Publish pre-release
+        if: steps.key.outputs.ok == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

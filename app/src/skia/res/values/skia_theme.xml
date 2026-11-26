@@ -39,9 +39,22 @@
     <dimen name="card_corner_radius">12dp</dimen>
     <dimen name="loading_radius">12dp</dimen>
 
-    <!-- Floating bottom navigation -->
+    <!-- Floating bottom navigation (labeled, so a little taller than upstream's 70dp) -->
+    <dimen name="nav_view_height">74dp</dimen>
     <dimen name="skia_nav_margin">14dp</dimen>
     <dimen name="skia_nav_radius">24dp</dimen>
+    <dimen name="skia_nav_item_padding">10dp</dimen>
+
+    <style name="SkiaNavLabel" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">11sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+
+    <style name="SkiaNavLabel.Active">
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <!--
         "AmoledLight" is the upstream default theme mode, so it carries the Skia palette.
