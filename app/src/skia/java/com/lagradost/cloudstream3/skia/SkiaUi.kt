@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.doOnAttach
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.lagradost.cloudstream3.R
@@ -99,11 +100,17 @@ object SkiaUi {
     }
 
     fun placeHomeSourcePill(pill: View) {
-        // Window insets do not reach this view (a parent consumes them), so use the
-        // status bar height directly, like upstream does for its own headers.
+        // Window insets are not dispatched to this view (a parent consumes them), so read the
+        // window's own insets once attached. The status_bar_height resource is not reliable:
+        // on devices with a cutout the real status bar is taller, and a pill placed from the
+        // resource ends up partly under the status bar, where the system takes the touches.
         val offset = pill.resources.getDimensionPixelSize(R.dimen.skia_home_pill_offset)
-        pill.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            topMargin = pill.context.getStatusBarHeight() + offset
+        fun place() {
+            val top = ViewCompat.getRootWindowInsets(pill)
+                ?.getInsets(WindowInsetsCompat.Type.statusBars())?.top
+                ?: pill.context.getStatusBarHeight()
+            pill.updateLayoutParams<ViewGroup.MarginLayoutParams> { topMargin = top + offset }
         }
+        if (pill.isAttachedToWindow) place() else pill.doOnAttach { place() }
     }
 }
