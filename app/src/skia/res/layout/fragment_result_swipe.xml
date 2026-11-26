@@ -71,13 +71,21 @@
             android:layout_gravity="bottom"
             android:orientation="vertical">
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/result_bookmark_fab"
-                style="@style/ExtendedFloatingActionButton"
-                android:visibility="gone"
-                app:icon="@drawable/ic_baseline_bookmark_24"
-                tools:ignore="ContentDescription"
-                tools:visibility="visible" />
+            <!-- Skia: the bookmark FAB stays for upstream's state and click handler; the top bar
+                 shows it as a round button (SkiaResultPage) -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/result_bookmark_fab"
+                    style="@style/ExtendedFloatingActionButton"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_baseline_bookmark_24"
+                    tools:ignore="ContentDescription"
+                    tools:visibility="visible" />
+            </FrameLayout>
 
             <fragment
                 android:id="@+id/cast_mini_controller"
@@ -137,6 +145,22 @@
                 app:tint="?attr/white" />
         </LinearLayout>
 
+        <!-- Skia: page title, fades in once the artwork scrolls away (SkiaResultPage) -->
+        <TextView
+            android:id="@+id/skia_top_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="150dp"
+            android:alpha="0"
+            android:ellipsize="end"
+            android:fontFamily="@font/google_sans"
+            android:singleLine="true"
+            android:textColor="?attr/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:id="@+id/media_route_button_holder"
             android:layout_width="match_parent"
@@ -157,107 +181,141 @@
                 app:mediaRouteButtonTint="?attr/white" />
 
             <ImageView
-                android:id="@+id/result_subscribe"
+                android:id="@+id/skia_bookmark_button"
                 android:layout_width="@dimen/skia_icon_button"
                 android:layout_height="@dimen/skia_icon_button"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginStart="@dimen/skia_icon_gap"
                 android:background="@drawable/skia_glass_circle"
-                android:nextFocusLeft="@id/result_add_sync"
-                android:nextFocusRight="@id/result_favorite"
-                android:nextFocusUp="@id/result_back"
-                android:nextFocusDown="@id/result_description"
-                android:padding="11dp"
-                android:src="@drawable/baseline_notifications_none_24"
-                android:tooltipText="@string/subscribe_tooltip"
+                android:contentDescription="@string/action_add_to_bookmarks"
+                android:padding="9dp"
+                android:src="@drawable/ic_baseline_add_24"
                 android:visibility="gone"
                 app:tint="?attr/white"
                 tools:visibility="visible" />
 
             <ImageView
-                android:id="@+id/result_favorite"
+                android:id="@+id/skia_more_button"
                 android:layout_width="@dimen/skia_icon_button"
                 android:layout_height="@dimen/skia_icon_button"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginStart="@dimen/skia_icon_gap"
                 android:background="@drawable/skia_glass_circle"
-                android:nextFocusLeft="@id/result_subscribe"
-                android:nextFocusRight="@id/result_share"
-                android:nextFocusUp="@id/result_back"
-                android:nextFocusDown="@id/result_description"
-                android:padding="11dp"
-                android:src="@drawable/ic_baseline_favorite_border_24"
-                android:tooltipText="@string/action_add_to_favorites"
+                android:contentDescription="@string/skia_more_actions"
+                android:padding="9dp"
+                android:src="@drawable/ic_baseline_more_vert_24"
                 app:tint="?attr/white" />
 
-            <ImageView
-                android:id="@+id/result_share"
-                android:layout_width="@dimen/skia_icon_button"
-                android:layout_height="@dimen/skia_icon_button"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginStart="@dimen/skia_icon_gap"
-                android:background="@drawable/skia_glass_circle"
-                android:contentDescription="@string/result_share"
-                android:nextFocusLeft="@id/result_favorite"
-                android:nextFocusRight="@id/result_open_in_browser"
-                android:nextFocusUp="@id/result_back"
-                android:nextFocusDown="@id/result_description"
-                android:padding="11dp"
-                android:src="@drawable/ic_outline_share_24"
-                android:tooltipText="@string/result_share"
-                app:tint="?attr/white" />
+            <!-- Skia: upstream's page actions, kept for their state and click handlers. The more
+                 button lists the visible ones in a menu (SkiaResultPage). -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/result_open_in_browser"
-                android:layout_width="@dimen/skia_icon_button"
-                android:layout_height="@dimen/skia_icon_button"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginStart="@dimen/skia_icon_gap"
-                android:background="@drawable/skia_glass_circle"
-                android:contentDescription="@string/result_open_in_browser"
-                android:nextFocusLeft="@id/result_share"
-                android:nextFocusRight="@id/result_search"
-                android:nextFocusUp="@id/result_back"
-                android:nextFocusDown="@id/result_description"
-                android:padding="11dp"
-                android:src="@drawable/ic_baseline_public_24"
-                android:tooltipText="@string/result_open_in_browser"
-                app:tint="?attr/white" />
+                <ImageView
+                    android:id="@+id/result_subscribe"
+                    android:layout_width="@dimen/skia_icon_button"
+                    android:layout_height="@dimen/skia_icon_button"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginStart="@dimen/skia_icon_gap"
+                    android:background="@drawable/skia_glass_circle"
+                    android:nextFocusLeft="@id/result_add_sync"
+                    android:nextFocusRight="@id/result_favorite"
+                    android:nextFocusUp="@id/result_back"
+                    android:nextFocusDown="@id/result_description"
+                    android:padding="11dp"
+                    android:src="@drawable/baseline_notifications_none_24"
+                    android:tooltipText="@string/subscribe_tooltip"
+                    android:visibility="gone"
+                    app:tint="?attr/white"
+                    tools:visibility="visible" />
 
-            <ImageView
-                android:id="@+id/result_search"
-                android:layout_width="@dimen/skia_icon_button"
-                android:layout_height="@dimen/skia_icon_button"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginStart="@dimen/skia_icon_gap"
-                android:background="@drawable/skia_glass_circle"
-                android:contentDescription="@string/result_open_in_browser"
-                android:nextFocusLeft="@id/result_open_in_browser"
-                android:nextFocusRight="@id/result_recommendations_btt"
-                android:nextFocusUp="@id/result_back"
-                android:nextFocusDown="@id/result_description"
-                android:padding="10dp"
-                android:src="@drawable/search_icon"
-                android:tooltipText="@string/result_search_tooltip"
-                app:tint="?attr/white" />
+                <ImageView
+                    android:id="@+id/result_favorite"
+                    android:layout_width="@dimen/skia_icon_button"
+                    android:layout_height="@dimen/skia_icon_button"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginStart="@dimen/skia_icon_gap"
+                    android:background="@drawable/skia_glass_circle"
+                    android:nextFocusLeft="@id/result_subscribe"
+                    android:nextFocusRight="@id/result_share"
+                    android:nextFocusUp="@id/result_back"
+                    android:nextFocusDown="@id/result_description"
+                    android:padding="11dp"
+                    android:src="@drawable/ic_baseline_favorite_border_24"
+                    android:tooltipText="@string/action_add_to_favorites"
+                    app:tint="?attr/white" />
 
-            <ImageView
-                android:id="@+id/result_recommendations_btt"
-                android:layout_width="@dimen/skia_icon_button"
-                android:layout_height="@dimen/skia_icon_button"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginStart="@dimen/skia_icon_gap"
-                android:background="@drawable/skia_glass_circle"
-                android:contentDescription="@string/result_open_in_browser"
-                android:nextFocusLeft="@id/result_search"
-                android:nextFocusUp="@id/result_back"
-                android:nextFocusDown="@id/result_description"
-                android:padding="11dp"
-                android:src="@drawable/baseline_list_alt_24"
-                android:tooltipText="@string/recommendations_tooltip"
-                android:visibility="gone"
-                app:tint="?attr/white"
-                tools:visibility="visible" />
+                <ImageView
+                    android:id="@+id/result_share"
+                    android:layout_width="@dimen/skia_icon_button"
+                    android:layout_height="@dimen/skia_icon_button"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginStart="@dimen/skia_icon_gap"
+                    android:background="@drawable/skia_glass_circle"
+                    android:contentDescription="@string/result_share"
+                    android:nextFocusLeft="@id/result_favorite"
+                    android:nextFocusRight="@id/result_open_in_browser"
+                    android:nextFocusUp="@id/result_back"
+                    android:nextFocusDown="@id/result_description"
+                    android:padding="11dp"
+                    android:src="@drawable/ic_outline_share_24"
+                    android:tooltipText="@string/result_share"
+                    app:tint="?attr/white" />
+
+                <ImageView
+                    android:id="@+id/result_open_in_browser"
+                    android:layout_width="@dimen/skia_icon_button"
+                    android:layout_height="@dimen/skia_icon_button"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginStart="@dimen/skia_icon_gap"
+                    android:background="@drawable/skia_glass_circle"
+                    android:contentDescription="@string/result_open_in_browser"
+                    android:nextFocusLeft="@id/result_share"
+                    android:nextFocusRight="@id/result_search"
+                    android:nextFocusUp="@id/result_back"
+                    android:nextFocusDown="@id/result_description"
+                    android:padding="11dp"
+                    android:src="@drawable/ic_baseline_public_24"
+                    android:tooltipText="@string/result_open_in_browser"
+                    app:tint="?attr/white" />
+
+                <ImageView
+                    android:id="@+id/result_search"
+                    android:layout_width="@dimen/skia_icon_button"
+                    android:layout_height="@dimen/skia_icon_button"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginStart="@dimen/skia_icon_gap"
+                    android:background="@drawable/skia_glass_circle"
+                    android:contentDescription="@string/result_open_in_browser"
+                    android:nextFocusLeft="@id/result_open_in_browser"
+                    android:nextFocusRight="@id/result_recommendations_btt"
+                    android:nextFocusUp="@id/result_back"
+                    android:nextFocusDown="@id/result_description"
+                    android:padding="10dp"
+                    android:src="@drawable/search_icon"
+                    android:tooltipText="@string/result_search_tooltip"
+                    app:tint="?attr/white" />
+
+                <ImageView
+                    android:id="@+id/result_recommendations_btt"
+                    android:layout_width="@dimen/skia_icon_button"
+                    android:layout_height="@dimen/skia_icon_button"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginStart="@dimen/skia_icon_gap"
+                    android:background="@drawable/skia_glass_circle"
+                    android:contentDescription="@string/result_open_in_browser"
+                    android:nextFocusLeft="@id/result_search"
+                    android:nextFocusUp="@id/result_back"
+                    android:nextFocusDown="@id/result_description"
+                    android:padding="11dp"
+                    android:src="@drawable/baseline_list_alt_24"
+                    android:tooltipText="@string/recommendations_tooltip"
+                    android:visibility="gone"
+                    app:tint="?attr/white"
+                    tools:visibility="visible" />
+            </FrameLayout>
         </LinearLayout>
     </FrameLayout>
 </FrameLayout>

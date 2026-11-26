@@ -179,6 +179,12 @@
         <item name="behavior_peekHeight">512dp</item>
     </style>
 
+    <!-- Player side panel (source and subtitle picker), see SkiaPlayer.sidePanel -->
+    <style name="SkiaSidePanelAnimation">
+        <item name="android:windowEnterAnimation">@anim/skia_panel_in</item>
+        <item name="android:windowExitAnimation">@anim/skia_panel_out</item>
+    </style>
+
     <!-- Extended FABs (home source, details bookmark, library sort, random) -->
     <style name="ExtendedFloatingActionButton">
         <item name="elevation">0dp</item>

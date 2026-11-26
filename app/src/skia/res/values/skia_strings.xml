@@ -2,6 +2,9 @@
 <resources>
     <string name="skia_app_name" translatable="false">CloudStream Skia</string>
 
+    <!-- Details page top bar -->
+    <string name="skia_more_actions">More actions</string>
+
     <!-- Player source list -->
     <string name="skia_source_type_video">Video file</string>
     <string name="skia_source_type_file">Downloaded file</string>

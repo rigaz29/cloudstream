@@ -1024,6 +1024,7 @@ class GeneratorPlayer : FullScreenPlayer() {
                 sourceDialog.setContentView(binding.root)
 
                 fixSystemBarsPadding(binding.root)
+                com.lagradost.cloudstream3.skia.SkiaPlayer.sidePanel(sourceDialog, binding.root) // Skia hook
                 selectSourceDialog = sourceDialog
 
                 sourceDialog.show()

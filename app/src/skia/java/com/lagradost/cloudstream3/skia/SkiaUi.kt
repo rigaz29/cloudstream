@@ -7,11 +7,14 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnAttach
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import androidx.media3.ui.DefaultTimeBar
+import androidx.media3.ui.TimeBar
 import com.lagradost.cloudstream3.R
 import com.lagradost.cloudstream3.databinding.PlayerCustomLayoutBinding
 import com.lagradost.cloudstream3.ui.settings.Globals.PHONE
@@ -59,21 +62,33 @@ object SkiaUi {
     }
 
     /**
-     * Puts the home source picker (an extended FAB in upstream) at the top of Home, level
-     * with the search and profile buttons of the header, below the status bar.
-     */
-    /**
-     * Player overlay header (phone): title first, left aligned, with the source/resolution
-     * line below it as a small pill. Done at runtime on upstream's own views instead of
-     * overriding the 1000+ line player layout; ids, order of animations and texts are upstream's.
+     * Player overlay (phone), Nuvio-like: the title block (title, then the source/resolution
+     * line as a small pill) sits bottom-left above the seek bar, and the seek bar is a thin
+     * line without a thumb that thickens while dragged. Done at runtime on upstream's own
+     * views instead of overriding the 1000+ line player layout (shared with TV).
      */
     fun stylePlayerTop(binding: PlayerCustomLayoutBinding) {
         if (!isLayout(PHONE)) return
         val res = binding.root.resources
         fun dp(value: Int) = (value * res.displayMetrics.density).toInt()
 
+        // Into the seek bar's own ConstraintLayout, right above the time row: that layout
+        // also holds the (invisible) scrub preview frame, so the bar keeps its height.
         val column = binding.playerVideoTitleRez.parent as? LinearLayout ?: return
-        column.setPadding(column.paddingLeft, dp(18), column.paddingRight, column.paddingBottom)
+        (column.parent as? ViewGroup)?.removeView(column)
+        column.setPadding(0, 0, 0, 0)
+        column.gravity = Gravity.START
+        binding.playerVideoBar.addView(
+            column,
+            ConstraintLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+                endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+                bottomToTop = androidx.media3.ui.R.id.exo_position
+                marginStart = dp(24)
+                marginEnd = dp(24)
+                bottomMargin = dp(6)
+            }
+        )
 
         // Title above the source line.
         column.removeView(binding.playerVideoTitleHolder)
@@ -81,7 +96,9 @@ object SkiaUi {
         binding.playerVideoTitleHolder.gravity = Gravity.START or Gravity.CENTER_VERTICAL
         binding.playerVideoTitle.apply {
             gravity = Gravity.START
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+            maxLines = 1
+            ellipsize = TextUtils.TruncateAt.END
         }
 
         binding.playerVideoTitleRez.apply {
@@ -97,6 +114,46 @@ object SkiaUi {
             ellipsize = TextUtils.TruncateAt.END
         }
         binding.playerVideoInfo.gravity = Gravity.START
+
+        binding.root.findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
+            ?.let(::styleTimeBar)
+    }
+
+    /**
+     * Thin seek line, no thumb at rest; while dragging the line thickens and a small thumb
+     * shows. DefaultTimeBar takes these sizes only from XML attributes, so set its fields
+     * (minify is off; on failure the upstream look stays).
+     */
+    private fun styleTimeBar(bar: DefaultTimeBar) {
+        val density = bar.resources.displayMetrics.density
+        fun dp(value: Float) = (value * density).toInt()
+        fun setField(name: String, value: Int) = runCatching {
+            DefaultTimeBar::class.java.getDeclaredField(name).apply { isAccessible = true }
+                .setInt(bar, value)
+        }.isSuccess
+
+        // The bar rectangle is computed in onLayout from barHeight.
+        fun setBarHeight(value: Float) {
+            if (setField("barHeight", dp(value))) bar.requestLayout()
+        }
+
+        if (!setField("barHeight", dp(4f))) return
+        bar.requestLayout()
+        setField("scrubberEnabledSize", 0)
+        setField("scrubberDraggedSize", dp(16f))
+        val accent = TypedValue().also {
+            bar.context.theme.resolveAttribute(R.attr.colorPrimary, it, true)
+        }.data
+        bar.setUnplayedColor(0x4DFFFFFF)
+        bar.setBufferedColor((accent and 0x00FFFFFF) or 0x59000000)
+        bar.addListener(object : TimeBar.OnScrubListener {
+            override fun onScrubStart(timeBar: TimeBar, position: Long) = setBarHeight(7f)
+
+            override fun onScrubMove(timeBar: TimeBar, position: Long) = Unit
+
+            override fun onScrubStop(timeBar: TimeBar, position: Long, canceled: Boolean) =
+                setBarHeight(4f)
+        })
     }
 
     fun placeHomeSourcePill(pill: View) {
