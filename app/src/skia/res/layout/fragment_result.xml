@@ -629,18 +629,19 @@
                                     <ImageView
                                         android:id="@+id/episode_play_icon"
                                         style="@style/ContinueWatchingPlayUnderlayProgress"
-                                        app:tint="?attr/black" />
+                                        app:tint="?attr/colorOnPrimary" />
 
                                     <com.google.android.material.progressindicator.CircularProgressIndicator
                                         android:id="@+id/result_resume_series_progress"
                                         style="@style/ContinueWatchingCircularProgress"
-                                        app:indicatorColor="?attr/iconGrayBackground"
+                                        app:indicatorColor="?attr/colorOnPrimary"
                                         app:trackColor="@color/skipOpTransparent"
                                         tools:progress="50" />
                                 </FrameLayout>
 
                                 <TextView
                                     android:id="@+id/result_resume_series_title"
+                                    android:letterSpacing="0.01"
                                     style="@style/Widget.MaterialComponents.Button.TextButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
@@ -651,7 +652,7 @@
                                     android:maxLines="1"
                                     android:paddingStart="5dp"
                                     android:textAllCaps="false"
-                                    android:textColor="?attr/iconGrayBackground"
+                                    android:textColor="?attr/colorOnPrimary"
                                     android:textSize="15sp"
                                     android:textStyle="bold"
                                     android:visibility="visible"
@@ -661,6 +662,7 @@
 
                                 <TextView
                                     android:id="@+id/result_resume_series_progress_text"
+                                    android:letterSpacing="0.01"
                                     style="@style/Widget.MaterialComponents.Button.TextButton"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
@@ -670,7 +672,7 @@
                                     android:maxLines="1"
                                     android:paddingStart="5dp"
                                     android:textAllCaps="false"
-                                    android:textColor="?attr/iconGrayBackground"
+                                    android:textColor="?attr/colorOnPrimary"
                                     android:textSize="15sp"
                                     android:textStyle="bold"
                                     android:visibility="gone"

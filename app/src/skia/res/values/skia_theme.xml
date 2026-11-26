@@ -14,9 +14,9 @@
     <color name="skia_line">#26262E</color>
     <color name="skia_text">#F5F5F7</color>
     <color name="skia_text_muted">#A0A0AB</color>
-    <color name="skia_accent">#8B7CFF</color>
-    <color name="skia_accent_dark">#5B4BD6</color>
-    <color name="skia_on_accent">#0B0A14</color>
+    <color name="skia_accent">#E0283E</color>
+    <color name="skia_accent_dark">#9E1B2D</color>
+    <color name="skia_on_accent">#FFFFFF</color>
 
     <!-- Upstream base colors (used by the "Black" mode and as defaults everywhere) -->
     <color name="colorPrimary">@color/skia_accent</color>
@@ -193,7 +193,7 @@
         <item name="iconColor">@color/skia_text_muted</item>
     </style>
 
-    <!-- "Normal" is the upstream default primary color: Skia violet with dark text on it -->
+    <!-- "Normal" is the upstream default primary color: Skia crimson with white text on it -->
     <style name="OverlayPrimaryColorNormal">
         <item name="colorPrimary">@color/skia_accent</item>
         <item name="android:colorPrimary">@color/skia_accent</item>

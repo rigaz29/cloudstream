@@ -36,7 +36,9 @@ object SkiaTheme {
     val line = Color(0xFF26262E)
     val text = Color(0xFFF5F5F7)
     val textMuted = Color(0xFFA0A0AB)
-    val accent = Color(0xFF8B7CFF)
+    val accent = Color(0xFFE0283E)
+
+    /** Text on light accent colors; the Skia crimson itself takes white text. */
     val onAccent = Color(0xFF0B0A14)
 
     val fontFamily: FontFamily

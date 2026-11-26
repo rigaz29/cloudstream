@@ -44,7 +44,7 @@ Good to know:
 Skia keeps every CloudStream feature and works with every CloudStream extension. On phones
 it changes:
 
-- **Look:** a darker base, one violet accent, Plus Jakarta Sans as the interface font, and
+- **Look:** a darker base, one crimson accent, Plus Jakarta Sans as the interface font, and
   rounder cards and buttons. Other themes and accent colors from the settings still work.
 - **Navigation:** a floating bottom bar with labels; the source picker sits at the top of
   Home.
