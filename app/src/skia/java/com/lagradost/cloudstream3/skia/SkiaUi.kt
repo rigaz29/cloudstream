@@ -1,13 +1,20 @@
 package com.lagradost.cloudstream3.skia
 
 import android.os.Build
+import android.text.TextUtils
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.lagradost.cloudstream3.R
+import com.lagradost.cloudstream3.databinding.PlayerCustomLayoutBinding
+import com.lagradost.cloudstream3.ui.settings.Globals.PHONE
+import com.lagradost.cloudstream3.ui.settings.Globals.isLayout
 import com.lagradost.cloudstream3.utils.UIHelper.getStatusBarHeight
 
 /**
@@ -54,6 +61,43 @@ object SkiaUi {
      * Puts the home source picker (an extended FAB in upstream) at the top of Home, level
      * with the search and profile buttons of the header, below the status bar.
      */
+    /**
+     * Player overlay header (phone): title first, left aligned, with the source/resolution
+     * line below it as a small pill. Done at runtime on upstream's own views instead of
+     * overriding the 1000+ line player layout; ids, order of animations and texts are upstream's.
+     */
+    fun stylePlayerTop(binding: PlayerCustomLayoutBinding) {
+        if (!isLayout(PHONE)) return
+        val res = binding.root.resources
+        fun dp(value: Int) = (value * res.displayMetrics.density).toInt()
+
+        val column = binding.playerVideoTitleRez.parent as? LinearLayout ?: return
+        column.setPadding(column.paddingLeft, dp(18), column.paddingRight, column.paddingBottom)
+
+        // Title above the source line.
+        column.removeView(binding.playerVideoTitleHolder)
+        column.addView(binding.playerVideoTitleHolder, 0)
+        binding.playerVideoTitleHolder.gravity = Gravity.START or Gravity.CENTER_VERTICAL
+        binding.playerVideoTitle.apply {
+            gravity = Gravity.START
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
+        }
+
+        binding.playerVideoTitleRez.apply {
+            gravity = Gravity.START
+            updateLayoutParams<LinearLayout.LayoutParams> {
+                width = ViewGroup.LayoutParams.WRAP_CONTENT
+                topMargin = dp(6)
+            }
+            setBackgroundResource(R.drawable.skia_player_pill)
+            setPadding(dp(10), dp(3), dp(10), dp(4))
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+            maxLines = 1
+            ellipsize = TextUtils.TruncateAt.END
+        }
+        binding.playerVideoInfo.gravity = Gravity.START
+    }
+
     fun placeHomeSourcePill(pill: View) {
         // Window insets do not reach this view (a parent consumes them), so use the
         // status bar height directly, like upstream does for its own headers.

@@ -1371,6 +1371,7 @@ open class FullScreenPlayer : AbstractPlayerFragment<FragmentPlayerBinding>(
         // (brightness overlay is now injected by PlayerView.initialize())
         playerBinding =
             PlayerCustomLayoutBinding.bind(binding.root.findViewById(R.id.player_holder))
+        playerBinding?.let { com.lagradost.cloudstream3.skia.SkiaUi.stylePlayerTop(it) } // Skia hook
 
         super.onBindingCreated(binding, savedInstanceState)
 
