@@ -1,0 +1,3 @@
+# CloudStream Skia: files the fork owns. On a merge conflict with upstream keep the fork's
+# version (the sync workflow sets `git config merge.ours.driver true`; set it locally too).
+README.md merge=ours

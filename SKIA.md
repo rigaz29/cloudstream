@@ -55,7 +55,11 @@ own files and call it from the hook.
 4. builds the prerelease APK, signs it with the fork's key and publishes it as the
    `pre-release` GitHub release, which the in-app updater checks.
 
-To sync by hand:
+`README.md` belongs to the fork: `.gitattributes` marks it `merge=ours`, so an upstream edit
+to it never stops the sync. The release asset is always `CloudStream-Skia.apk`, so the README
+can link the latest build directly.
+
+To sync by hand (once per clone: `git config merge.ours.driver true`):
 
 ```sh
 git fetch upstream

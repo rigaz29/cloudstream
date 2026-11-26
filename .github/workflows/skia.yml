@@ -41,6 +41,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # .gitattributes marks fork-owned files (README.md) with merge=ours: keep ours on conflicts.
+          git config merge.ours.driver true
           git remote add upstream https://github.com/recloudstream/cloudstream.git
           git fetch --quiet upstream master
 
@@ -144,7 +146,8 @@ jobs:
         run: |
           SHA=$(git rev-parse HEAD)
           SHORT=${SHA:0:7}
-          APK="CloudStream-Skia-${SHORT}.apk"
+          # Fixed name so README can link the latest APK directly; the commit is in the notes.
+          APK="CloudStream-Skia.apk"
           cp app/build/outputs/apk/prerelease/release/*.apk "$APK"
 
           gh release delete pre-release --yes --cleanup-tag || true
@@ -153,7 +156,7 @@ jobs:
           gh api -X DELETE "repos/${GITHUB_REPOSITORY}/git/refs/tags/pre-release" || true
           gh release create pre-release --prerelease --target "$SHA" \
             --title "CloudStream Skia pre-release" \
-            --notes "Built from ${SHORT} on $(date -u +%Y-%m-%d). Installs as com.lagradost.cloudstream3.skia, next to the official CloudStream apps."
+            --notes "Built from ${SHORT} ($(git log -1 --format=%s | sed 's/"//g')) on $(date -u +%Y-%m-%d). Installs as com.lagradost.cloudstream3.skia, next to the official CloudStream apps. Android 6.0+, one APK for phones, tablets and Android TV."
 
           # Upload with an explicit content type: the in-app updater looks for it.
           UPLOAD_URL=$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/pre-release" --jq '.upload_url' | sed 's/{.*}//')
