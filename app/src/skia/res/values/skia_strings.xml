@@ -5,4 +5,14 @@
     <!-- Player source list -->
     <string name="skia_source_type_video">Video file</string>
     <string name="skia_source_type_file">Downloaded file</string>
+
+    <!-- Search status line -->
+    <plurals name="skia_search_progress">
+        <item quantity="one">%1$d of %2$d source answered</item>
+        <item quantity="other">%1$d of %2$d sources answered</item>
+    </plurals>
+    <plurals name="skia_search_done">
+        <item quantity="one">Results from %1$d of %2$d source</item>
+        <item quantity="other">Results from %1$d of %2$d sources</item>
+    </plurals>
 </resources>

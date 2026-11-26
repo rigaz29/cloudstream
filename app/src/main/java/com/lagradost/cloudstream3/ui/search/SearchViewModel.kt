@@ -52,6 +52,7 @@ class SearchViewModel : ViewModel() {
     private var repos = apis.withLock { apis.map { APIRepository(it) } }
 
     fun clearSearch() {
+        com.lagradost.cloudstream3.skia.SkiaSearchProgress.clear(this) // Skia hook
         _searchResponse.postValue(Resource.Success(ExpandableSearchList(emptyList(), 0, false)))
         _currentSearch.postValue(emptyMap())
         expandableSearches.clear()
@@ -231,9 +232,11 @@ class SearchViewModel : ViewModel() {
             withContext(Dispatchers.IO) { // This interrupts UI otherwise
                 repos.filter { a ->
                     (ignoreSettings || (providersActive.isEmpty() || providersActive.contains(a.name))) && (!isQuickSearch || a.hasQuickSearch)
-                }.amap { a -> // Parallel
+                }.also { com.lagradost.cloudstream3.skia.SkiaSearchProgress.start(this@SearchViewModel, currentIndex, it.size) } // Skia hook
+                .amap { a -> // Parallel
                     val search = if (isQuickSearch) a.quickSearch(query) else a.search(query, 1)
                     if (currentSearchIndex != currentIndex) return@amap
+                    com.lagradost.cloudstream3.skia.SkiaSearchProgress.answered(this@SearchViewModel, currentIndex, (search as? Resource.Success)?.value?.items?.isNotEmpty() == true) // Skia hook
                     if (search is Resource.Success) {
                         val searchValue = search.value
                         expandableSearches[a.name] =

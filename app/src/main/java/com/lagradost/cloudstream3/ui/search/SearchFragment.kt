@@ -465,6 +465,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(
             }
         })
 
+        com.lagradost.cloudstream3.skia.SkiaSearchStatus.attach(this, searchViewModel, binding) // Skia hook
         observe(searchViewModel.searchResponse) {
             when (it) {
                 is Resource.Success -> {

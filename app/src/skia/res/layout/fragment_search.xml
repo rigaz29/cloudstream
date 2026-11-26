@@ -124,6 +124,11 @@
             <include
                 android:id="@+id/tvtypes_chips_scroll"
                 layout="@layout/tvtypes_chips_scroll" />
+            <!--
+                No new view ids in this file: SearchFragment binds fragment_search_tv with this
+                layout's binding on TV, so every id here must exist there too. Skia additions
+                (SkiaSearchStatus) are added at runtime.
+            -->
         </LinearLayout>
 
         <com.lagradost.cloudstream3.ui.AutofitRecyclerView

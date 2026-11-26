@@ -28,6 +28,10 @@ resource with the same name without editing the upstream file:
 - Files (`layout`, `drawable`, `color`, `font`) override **by file name**. A layout override
   must keep every view id and view type the upstream Kotlin code binds, otherwise the screen
   fails to inflate.
+- Do not add view ids to layouts whose binding upstream also applies to a TV variant
+  (`fragment_home`, `fragment_search`, `fragment_library`, `activity_main`,
+  `player_custom_layout`): the TV layout would miss the id and fail to bind. Add such views
+  at runtime from fork code instead (see `SkiaSearchStatus`).
 
 ## Hooks in upstream files
 
