@@ -982,7 +982,7 @@ open class ResultFragmentPhone : BaseFragment<FragmentResultSwipeBinding>(
                             isExpanded = !isExpanded
                             maxLines = if (isExpanded) {
                                 Integer.MAX_VALUE
-                            } else 10
+                            } else com.lagradost.cloudstream3.skia.SkiaUi.DESCRIPTION_LINES // Skia hook
                         }
                     }
 

@@ -14,6 +14,9 @@ import com.lagradost.cloudstream3.R
  * (search the code base for "Skia hook").
  */
 object SkiaUi {
+    /** Collapsed description length on the details page (upstream: 10). */
+    const val DESCRIPTION_LINES = 4
+
     /**
      * Turns the bottom navigation into a floating pill.
      *

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CloudStream Skia override of app/src/main/res/layout/fragment_result_swipe.xml.
+    Same view ids and types as upstream. Changes: the root is a FrameLayout so the top
+    bar floats over the artwork, and its icons sit in round translucent buttons.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AlertDialogCustom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/result_fullscreen_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/result_main_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.discord.panels.OverlappingPanelsLayout
+            android:id="@+id/result_overlapping_panels"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Set layout_gravity on the start panel to "start" -->
+            <FrameLayout
+                android:id="@+id/start_panel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/result_sync"
+                    layout="@layout/result_sync" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/center_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <include
+                    android:id="@+id/fragment_result"
+                    layout="@layout/fragment_result" />
+
+            </FrameLayout>
+
+            <!-- Set layout_gravity on the end panel to "end" -->
+            <FrameLayout
+                android:id="@+id/end_panel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end">
+
+                <include
+                    android:id="@+id/result_recommendations"
+                    layout="@layout/result_recommendations" />
+            </FrameLayout>
+        </com.discord.panels.OverlappingPanelsLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/result_bookmark_fab"
+                style="@style/ExtendedFloatingActionButton"
+                android:visibility="gone"
+                app:icon="@drawable/ic_baseline_bookmark_24"
+                tools:ignore="ContentDescription"
+                tools:visibility="visible" />
+
+            <fragment
+                android:id="@+id/cast_mini_controller"
+                class="com.lagradost.cloudstream3.ui.MyMiniControllerFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:castControlButtons="@array/cast_mini_controller_control_buttons"
+                app:customCastBackgroundColor="?attr/primaryBlackBackground"
+                tools:ignore="FragmentTagUsage" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/result_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/result_back"
+                android:layout_width="@dimen/skia_icon_button"
+                android:layout_height="@dimen/skia_icon_button"
+                android:layout_gravity="center_vertical|start"
+                android:background="@drawable/skia_glass_circle"
+                android:clickable="true"
+                android:contentDescription="@string/go_back"
+                android:focusable="true"
+                android:nextFocusRight="@id/result_mini_sync"
+                android:padding="10dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:tint="?attr/white" />
+
+            <ImageView
+                android:id="@+id/result_mini_sync"
+                android:layout_width="@dimen/skia_icon_button"
+                android:layout_height="@dimen/skia_icon_button"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/skia_icon_gap"
+                android:background="@drawable/skia_glass_circle"
+                android:clickable="true"
+                android:focusable="true"
+                android:nextFocusRight="@id/result_subscribe"
+                android:padding="10dp"
+                android:src="@drawable/bookmark_star_24px"
+                android:visibility="gone"
+                app:tint="?attr/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/media_route_button_holder"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/skia_icon_button"
+            android:layout_gravity="center_vertical|end"
+            android:animateLayoutChanges="true"
+            android:gravity="end|center_vertical">
+
+            <androidx.mediarouter.app.MediaRouteButton
+                android:id="@+id/media_route_button"
+                android:layout_width="@dimen/skia_icon_button"
+                android:layout_height="@dimen/skia_icon_button"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginStart="@dimen/skia_icon_gap"
+                android:background="@drawable/skia_glass_circle"
+                android:mediaRouteTypes="user"
+                android:visibility="gone"
+                app:mediaRouteButtonTint="?attr/white" />
+
+            <ImageView
+                android:id="@+id/result_subscribe"
+                android:layout_width="@dimen/skia_icon_button"
+                android:layout_height="@dimen/skia_icon_button"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginStart="@dimen/skia_icon_gap"
+                android:background="@drawable/skia_glass_circle"
+                android:nextFocusLeft="@id/result_add_sync"
+                android:nextFocusRight="@id/result_favorite"
+                android:nextFocusUp="@id/result_back"
+                android:nextFocusDown="@id/result_description"
+                android:padding="11dp"
+                android:src="@drawable/baseline_notifications_none_24"
+                android:tooltipText="@string/subscribe_tooltip"
+                android:visibility="gone"
+                app:tint="?attr/white"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/result_favorite"
+                android:layout_width="@dimen/skia_icon_button"
+                android:layout_height="@dimen/skia_icon_button"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginStart="@dimen/skia_icon_gap"
+                android:background="@drawable/skia_glass_circle"
+                android:nextFocusLeft="@id/result_subscribe"
+                android:nextFocusRight="@id/result_share"
+                android:nextFocusUp="@id/result_back"
+                android:nextFocusDown="@id/result_description"
+                android:padding="11dp"
+                android:src="@drawable/ic_baseline_favorite_border_24"
+                android:tooltipText="@string/action_add_to_favorites"
+                app:tint="?attr/white" />
+
+            <ImageView
+                android:id="@+id/result_share"
+                android:layout_width="@dimen/skia_icon_button"
+                android:layout_height="@dimen/skia_icon_button"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginStart="@dimen/skia_icon_gap"
+                android:background="@drawable/skia_glass_circle"
+                android:contentDescription="@string/result_share"
+                android:nextFocusLeft="@id/result_favorite"
+                android:nextFocusRight="@id/result_open_in_browser"
+                android:nextFocusUp="@id/result_back"
+                android:nextFocusDown="@id/result_description"
+                android:padding="11dp"
+                android:src="@drawable/ic_outline_share_24"
+                android:tooltipText="@string/result_share"
+                app:tint="?attr/white" />
+
+            <ImageView
+                android:id="@+id/result_open_in_browser"
+                android:layout_width="@dimen/skia_icon_button"
+                android:layout_height="@dimen/skia_icon_button"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginStart="@dimen/skia_icon_gap"
+                android:background="@drawable/skia_glass_circle"
+                android:contentDescription="@string/result_open_in_browser"
+                android:nextFocusLeft="@id/result_share"
+                android:nextFocusRight="@id/result_search"
+                android:nextFocusUp="@id/result_back"
+                android:nextFocusDown="@id/result_description"
+                android:padding="11dp"
+                android:src="@drawable/ic_baseline_public_24"
+                android:tooltipText="@string/result_open_in_browser"
+                app:tint="?attr/white" />
+
+            <ImageView
+                android:id="@+id/result_search"
+                android:layout_width="@dimen/skia_icon_button"
+                android:layout_height="@dimen/skia_icon_button"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginStart="@dimen/skia_icon_gap"
+                android:background="@drawable/skia_glass_circle"
+                android:contentDescription="@string/result_open_in_browser"
+                android:nextFocusLeft="@id/result_open_in_browser"
+                android:nextFocusRight="@id/result_recommendations_btt"
+                android:nextFocusUp="@id/result_back"
+                android:nextFocusDown="@id/result_description"
+                android:padding="10dp"
+                android:src="@drawable/search_icon"
+                android:tooltipText="@string/result_search_tooltip"
+                app:tint="?attr/white" />
+
+            <ImageView
+                android:id="@+id/result_recommendations_btt"
+                android:layout_width="@dimen/skia_icon_button"
+                android:layout_height="@dimen/skia_icon_button"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginStart="@dimen/skia_icon_gap"
+                android:background="@drawable/skia_glass_circle"
+                android:contentDescription="@string/result_open_in_browser"
+                android:nextFocusLeft="@id/result_search"
+                android:nextFocusUp="@id/result_back"
+                android:nextFocusDown="@id/result_description"
+                android:padding="11dp"
+                android:src="@drawable/baseline_list_alt_24"
+                android:tooltipText="@string/recommendations_tooltip"
+                android:visibility="gone"
+                app:tint="?attr/white"
+                tools:visibility="visible" />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>
