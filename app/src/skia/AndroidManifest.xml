@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CloudStream Skia: merged into every flavor (see the Skia block in app/build.gradle.kts).
+    app_name is translated in ~60 locales upstream, so the launcher label is replaced here
+    instead of overriding each strings.xml.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:label="@string/skia_app_name"
+        tools:replace="android:label" />
+</manifest>

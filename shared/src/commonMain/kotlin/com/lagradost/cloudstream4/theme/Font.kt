@@ -43,7 +43,7 @@ object AppFont {
 
     private val defaultTypography = androidx.compose.material3.Typography()
     val typography @Composable get() =
-        googleSans.let { fontFamily ->
+        com.lagradost.cloudstream4.skia.SkiaTheme.fontFamily.let { fontFamily -> // Skia hook
             val lineHeight = 1.3.em
             Typography(
                 displayLarge = defaultTypography.displayLarge.copy(fontFamily = fontFamily, lineHeight = lineHeight),

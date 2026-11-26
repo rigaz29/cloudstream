@@ -1292,6 +1292,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener, BiometricCa
                 padTop = false,
                 overlayCutout = false
             )
+            if (isLayout(PHONE)) com.lagradost.cloudstream3.skia.SkiaUi.floatBottomNav(navView) // Skia hook
 
             fixSystemBarsPadding(
                 navRailView,

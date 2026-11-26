@@ -12,6 +12,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import com.lagradost.cloudstream4.skia.SkiaTheme
 
 enum class CloudStreamThemeMode {
     /** "Black" standard dark, #111111 backgrounds */
@@ -120,12 +121,13 @@ fun CloudStreamTheme(
     primaryColor: CloudStreamPrimaryColor = CloudStreamPrimaryColor.NORMAL,
     content: @Composable () -> Unit,
 ) {
-    val csColors = modeToTheme(mode, primaryColor)
+    val csColors = SkiaTheme.adjust(modeToTheme(mode, primaryColor), mode, primaryColor) // Skia hook
     val globalTransition = rememberInfiniteTransition(label = "GlobalSharedTransition")
     // We do not provide csColors as a global, because people should use MaterialTheme directly instead
     CompositionLocalProvider(LocalSharedInfiniteTransition provides globalTransition) {
         MaterialTheme(
-            colorScheme = csColors.toMaterial3ColorScheme(),
+            colorScheme = SkiaTheme.material(csColors.toMaterial3ColorScheme()), // Skia hook
+            shapes = SkiaTheme.shapes, // Skia hook
             content = content,
             typography = AppFont.typography
         )

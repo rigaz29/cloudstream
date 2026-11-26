@@ -359,3 +359,23 @@ dokka {
         }
     }
 }
+
+// CloudStream Skia: fork-only build settings, kept in this one block at the end so that
+// upstream merges rarely touch it. The fork's files live in app/src/skia (see SKIA.md).
+android {
+    defaultConfig {
+        // Signed with the fork's own key, so it installs next to the official builds.
+        applicationId = "com.lagradost.cloudstream3.skia"
+    }
+    productFlavors.named("prerelease") {
+        applicationIdSuffix = null
+    }
+    // app/src/skia overrides app/src/main by resource name in every flavor.
+    listOf("stable", "prerelease").forEach { flavor ->
+        sourceSets.named(flavor) {
+            manifest.srcFile("src/skia/AndroidManifest.xml")
+            res.srcDir("src/skia/res")
+            kotlin.srcDir("src/skia/java")
+        }
+    }
+}

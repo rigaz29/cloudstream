@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CloudStream Skia: global look.
+
+    Everything here overrides an upstream resource of the same name (app/src/main/res),
+    so upstream files stay untouched. Keep overrides to single colors/dimens and to the
+    small mode/overlay styles; never copy big upstream styles such as AppTheme.
+-->
+<resources>
+    <!-- Skia palette -->
+    <color name="skia_ground">#09090B</color>
+    <color name="skia_surface">#141418</color>
+    <color name="skia_surface_high">#1C1C22</color>
+    <color name="skia_line">#26262E</color>
+    <color name="skia_text">#F5F5F7</color>
+    <color name="skia_text_muted">#A0A0AB</color>
+    <color name="skia_accent">#8B7CFF</color>
+    <color name="skia_accent_dark">#5B4BD6</color>
+    <color name="skia_on_accent">#0B0A14</color>
+
+    <!-- Upstream base colors (used by the "Black" mode and as defaults everywhere) -->
+    <color name="colorPrimary">@color/skia_accent</color>
+    <color name="colorAccent">@color/skia_accent</color>
+    <color name="colorPrimaryDark">@color/skia_accent_dark</color>
+    <color name="textColor">@color/skia_text</color>
+    <color name="grayTextColor">@color/skia_text_muted</color>
+    <color name="iconColor">@color/skia_text_muted</color>
+    <color name="primaryGrayBackground">@color/skia_surface</color>
+    <color name="primaryBlackBackground">@color/skia_ground</color>
+    <color name="iconGrayBackground">@color/skia_surface_high</color>
+    <color name="boxItemBackground">@color/skia_surface</color>
+    <color name="amoledModeLight">@color/skia_surface</color>
+    <color name="dubColorBg">@color/skia_accent</color>
+    <color name="dubColorText">@color/skia_on_accent</color>
+
+    <!-- Rounder corners -->
+    <dimen name="rounded_image_radius">12dp</dimen>
+    <dimen name="rounded_button_radius">14dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="loading_radius">12dp</dimen>
+
+    <!-- Floating bottom navigation -->
+    <dimen name="skia_nav_margin">14dp</dimen>
+    <dimen name="skia_nav_radius">24dp</dimen>
+
+    <!--
+        "AmoledLight" is the upstream default theme mode, so it carries the Skia palette.
+        The other modes (Amoled, Dracula, Light, ...) keep their upstream look.
+    -->
+    <style name="AmoledModeLight" parent="AmoledMode">
+        <item name="primaryBlackBackground">@color/skia_ground</item>
+        <item name="primaryGrayBackground">@color/skia_surface</item>
+        <item name="iconGrayBackground">@color/skia_surface_high</item>
+        <item name="boxItemBackground">@color/skia_surface</item>
+        <item name="textColor">@color/skia_text</item>
+        <item name="grayTextColor">@color/skia_text_muted</item>
+        <item name="iconColor">@color/skia_text_muted</item>
+    </style>
+
+    <!-- "Normal" is the upstream default primary color: Skia violet with dark text on it -->
+    <style name="OverlayPrimaryColorNormal">
+        <item name="colorPrimary">@color/skia_accent</item>
+        <item name="android:colorPrimary">@color/skia_accent</item>
+        <item name="colorPrimaryDark">@color/skia_accent_dark</item>
+        <item name="colorAccent">@color/skia_accent</item>
+        <item name="colorOnPrimary">@color/skia_on_accent</item>
+        <item name="android:colorAccent">@color/skia_accent</item>
+    </style>
+
+    <!-- The system navigation bar sits under the floating nav, so it takes the ground color -->
+    <style name="LoadedStyle">
+        <item name="android:navigationBarColor">?attr/primaryBlackBackground</item>
+        <item name="android:windowBackground">?attr/primaryBlackBackground</item>
+    </style>
+</resources>
